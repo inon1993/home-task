@@ -2,7 +2,6 @@ import Campaign from "../models/Campaign.js";
 
 export const addCampaign = async (req, res) => {
   try {
-    console.log(req.body);
     const newCampaign = new Campaign({
       name: req.body.name,
       advertsringPlatform: req.body.advertsringPlatform,
@@ -11,6 +10,26 @@ export const addCampaign = async (req, res) => {
     });
     await newCampaign.save();
     res.status(200).send(newCampaign);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+export const getAllCampaigns = async (req, res) => {
+  try {
+    const campaigns = await Campaign.find();
+    res.status(200).send(campaigns);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+export const editCampaign = async (req, res) => {
+  try {
+    await Campaign.findByIdAndUpdate(req.params.id, {
+      $set: req.body,
+    });
+    res.status(200).send("Campaign updated successfully.");
   } catch (error) {
     res.status(500).send(error);
   }
