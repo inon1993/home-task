@@ -12,6 +12,6 @@ routes
   // Get all campaigns
   .get("/get-campaigns", getAllCampaigns)
   //Edit campaign
-  .put("/edit/:id", editCampaign);
+  .patch("/edit/:id", editCampaign);
 
 export default routes;
