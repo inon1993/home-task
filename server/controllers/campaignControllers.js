@@ -26,9 +26,13 @@ export const getAllCampaigns = async (req, res) => {
 
 export const editCampaign = async (req, res) => {
   try {
-    const data = await Campaign.findByIdAndUpdate(req.params.id, {
-      $set: req.body,
-    });
+    const data = await Campaign.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      { runValidators: true }
+    );
     res.status(200).send("Campaign updated successfully.");
   } catch (error) {
     res.status(500).send(error);

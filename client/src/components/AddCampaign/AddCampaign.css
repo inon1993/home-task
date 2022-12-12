@@ -1,0 +1,95 @@
+.add-campaign-btn {
+    margin: 50px 0 25px;
+    background-color: #01B5D8;
+    border: none;
+    outline: none;
+    color: white;
+    border-radius: 15px;
+    padding: 15px 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: 200ms;
+}
+
+.add-campaign-btn:hover {
+    background-color: #0295C8;
+}
+
+.add-campaign-wrapper {
+    margin: 50px 0 25px;
+    border: 1px solid #ADE8F6;
+    width: 20vw;
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+}
+
+.add-campaign-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-campaign-input {
+    margin-top: 5px;
+    background-color: #f6f6f6;
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.platform-select {
+    margin: 5px 0;
+    background-color: #f6f6f6;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+
+.empty-msg {
+    margin-top: 5px;
+    margin-bottom: -10px;
+    text-align: center;
+    color: red;
+}
+
+.btns-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn {
+    height: 40px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.add-btn {
+    background-color: #01B5D8;
+    color: white;
+    margin-right: 20px;
+    transition: 200ms;
+}
+
+.add-btn:hover {
+    background-color: #0295C8;
+}
+
+.cancel-btn {
+    background-color: white;
+    border: 1px solid black;
+    transition: 200ms;
+}
+
+.cancel-btn:hover {
+    background-color: black;
+    color: white;
+}

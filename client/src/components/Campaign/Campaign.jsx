@@ -7,6 +7,7 @@ const Campaign = ({ campaign, getCampaigns }) => {
   const [campaignToUpdate, setCampaignToUpdate] = useState({
     _id: campaign._id,
   });
+  const [isEmpty, setIsEmpty] = useState(false);
 
   const editHandler = () => {
     setIsEdit((prevState) => {
@@ -15,12 +16,21 @@ const Campaign = ({ campaign, getCampaigns }) => {
   };
 
   const saveEditHandler = async () => {
-    await saveEdit(campaignToUpdate);
-    await getCampaigns();
-    editHandler();
+    if (Object.values(campaignToUpdate).some((key) => key.length === 0)) {
+      setIsEmpty(true);
+      return;
+    }
+    try {
+      await saveEdit(campaignToUpdate);
+      await getCampaigns();
+      editHandler();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const changeValues = (event) => {
+    setIsEmpty(false);
     setCampaignToUpdate((prevState) => {
       return {
         ...prevState,
@@ -38,6 +48,9 @@ const Campaign = ({ campaign, getCampaigns }) => {
       <td onClick={editHandler}>Edit</td>
       <td>
         <a href={campaign.bannerImageURL}>Preview</a>
+        <a href={campaign.advertiserLandingPage}>
+          <img src={campaign.bannerImageURL} alt="Banner" />
+        </a>
       </td>
     </tr>
   ) : (

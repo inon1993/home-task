@@ -3,15 +3,13 @@ import "./Table.css";
 
 const Table = ({ campaigns, getCampaigns }) => {
   return (
-    <table>
+    <table className="table">
       <thead>
         <tr>
           <th>Name</th>
           <th>Advertsring platform</th>
           <th>Advertiser landing page</th>
           <th>Banner image URL</th>
-          {/* <th>Edit</th> */}
-          {/* <th>Preview</th> */}
         </tr>
       </thead>
       <tbody>
