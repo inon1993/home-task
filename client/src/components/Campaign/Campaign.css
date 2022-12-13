@@ -31,17 +31,3 @@ a {
     max-width: 100%;
     margin-top: 10px;
 }
-
-.edit-input {
-    padding: 5px;
-    max-width: 90%;
-    border-radius: 5px;
-    border: 1px solid #01B5D8;
-}
-
-.error-msg-edit {
-    color: tomato;
-    font-size: 0.8rem;
-    margin-top: 5px;
-    display: block;
-}
