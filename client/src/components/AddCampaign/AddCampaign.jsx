@@ -18,7 +18,14 @@ const AddCampaign = ({ getCampaigns }) => {
     TIKTOK: "TikTok",
   });
 
-  const addCampaignToggle = () => {
+  const addCampaignToggle = (e) => {
+    if (e.currentTarget !== e.target) return;
+    setCampaign({
+      name: "",
+      advertsringPlatform: "",
+      advertiserLandingPage: "",
+      bannerImageURL: "",
+    });
     setIsAddCampagin((prev) => {
       return !prev;
     });
@@ -43,72 +50,77 @@ const AddCampaign = ({ getCampaigns }) => {
     try {
       await addCampaign(campaign);
       await getCampaigns();
-      addCampaignToggle();
+      setIsAddCampagin(false);
     } catch (error) {
       console.error(error);
     }
   };
 
-  return !isAddCampaign ? (
-    <button className="add-campaign-btn" onClick={addCampaignToggle}>
-      Add Campaign
-    </button>
-  ) : (
-    <div className="add-campaign-wrapper">
-      <form
-        className="add-campaign-form"
-        type="submit"
-        onSubmit={addCampaignHandler}
-      >
-        <label>Campaign name:</label>
-        <input
-          className="add-campaign-input"
-          name="name"
-          onChange={changeValues}
-        />
-        <label>Advertsring platform:</label>
-        <select
-          className="platform-select"
-          name="advertsringPlatform"
-          onChange={changeValues}
-          defaultValue=""
-        >
-          <option disabled default value="">
-            Select a platform
-          </option>
-          <option value={platforms.GOOGLE}>{platforms.GOOGLE}</option>
-          <option value={platforms.TABOOLA}>{platforms.TABOOLA}</option>
-          <option value={platforms.TIKTOK}>{platforms.TIKTOK}</option>
-        </select>
-        <label>Advertiser landing page:</label>
-        <input
-          className="add-campaign-input"
-          name="advertiserLandingPage"
-          onChange={changeValues}
-        />
-        <label>Banner image URL:</label>
-        <input
-          className="add-campaign-input"
-          name="bannerImageURL"
-          onChange={changeValues}
-        />
-        {isEmpty && (
-          <label className="empty-msg">All fields are required.</label>
-        )}
-        <div className="btns-wrapper">
-          <button className="btn add-btn" type="submit">
-            Add campaign
-          </button>
-          <button
-            className="btn cancel-btn"
-            type="button"
-            onClick={addCampaignToggle}
-          >
-            Cancel
-          </button>
+  return (
+    <>
+      <button className="add-campaign-btn" onClick={addCampaignToggle}>
+        Add Campaign
+      </button>
+      {isAddCampaign && (
+        <div className="overlay" onClick={addCampaignToggle}>
+          <div className="add-campaign-wrapper">
+            <form
+              className="add-campaign-form"
+              type="submit"
+              onSubmit={addCampaignHandler}
+            >
+              <label>Campaign name:</label>
+              <input
+                className="add-campaign-input"
+                name="name"
+                onChange={changeValues}
+              />
+              <label>Advertsring platform:</label>
+              <select
+                className="platform-select"
+                name="advertsringPlatform"
+                onChange={changeValues}
+                defaultValue=""
+              >
+                <option disabled default value="">
+                  Select a platform
+                </option>
+                <option value={platforms.GOOGLE}>{platforms.GOOGLE}</option>
+                <option value={platforms.TABOOLA}>{platforms.TABOOLA}</option>
+                <option value={platforms.TIKTOK}>{platforms.TIKTOK}</option>
+              </select>
+              <label>Advertiser landing page:</label>
+              <input
+                className="add-campaign-input"
+                name="advertiserLandingPage"
+                onChange={changeValues}
+              />
+              <label>Banner image URL:</label>
+              <input
+                className="add-campaign-input"
+                name="bannerImageURL"
+                onChange={changeValues}
+              />
+              {isEmpty && (
+                <label className="empty-msg">All fields are required.</label>
+              )}
+              <div className="btns-wrapper">
+                <button className="btn add-btn" type="submit">
+                  Add campaign
+                </button>
+                <button
+                  className="btn cancel-btn"
+                  type="button"
+                  onClick={addCampaignToggle}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-      </form>
-    </div>
+      )}
+    </>
   );
 };
 

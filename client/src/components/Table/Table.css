@@ -1,4 +1,26 @@
 .table {
+    background-color: white;
+    border-spacing: 0;
+    table-layout: fixed;
     width: 80%;
-    background-color: red;
+    border-radius: 5px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-bottom: 25px;
+}
+
+.table-title {
+    padding: 10px;
+    border-bottom: 1px solid #01B5D8;
+    background-color: white;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.table-title:first-child {
+    border-radius: 5px 0 0 0;
+}
+
+.table-title:last-child {
+    border-radius: 0 5px 0 0;
 }

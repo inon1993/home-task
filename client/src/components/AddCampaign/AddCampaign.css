@@ -1,5 +1,4 @@
 .add-campaign-btn {
-    margin: 50px 0 25px;
     background-color: #01B5D8;
     border: none;
     outline: none;
@@ -14,15 +13,6 @@
 
 .add-campaign-btn:hover {
     background-color: #0295C8;
-}
-
-.add-campaign-wrapper {
-    margin: 50px 0 25px;
-    border: 1px solid #ADE8F6;
-    width: 20vw;
-    padding: 20px;
-    background-color: white;
-    border-radius: 15px;
 }
 
 .add-campaign-form {
@@ -92,4 +82,35 @@
 .cancel-btn:hover {
     background-color: black;
     color: white;
+}
+
+.overlay {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    z-index: 3;
+}
+
+.overlay {
+    background: rgba(49,49,49,0.7);
+}
+
+.add-campaign-wrapper {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ADE8F6;
+    width: 20vw;
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+}
+
+body.active-modal {
+    overflow-y: hidden;
 }

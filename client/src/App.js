@@ -17,7 +17,10 @@ function App() {
 
   return (
     <div className="App">
-      <AddCampaign getCampaigns={getCampaignsArray} />
+      <div className="upper-section">
+        <label className="app-title">Welcome!</label>
+        <AddCampaign getCampaigns={getCampaignsArray} />
+      </div>
       <Table campaigns={campaigns} getCampaigns={getCampaignsArray} />
     </div>
   );

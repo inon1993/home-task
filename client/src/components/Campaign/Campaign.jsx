@@ -2,12 +2,18 @@ import "./Campaign.css";
 import { useState } from "react";
 import { saveEdit } from "../../api/campaignsApi";
 
-const Campaign = ({ campaign, getCampaigns }) => {
+const Campaign = ({ index, campaign, getCampaigns }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [campaignToUpdate, setCampaignToUpdate] = useState({
     _id: campaign._id,
   });
   const [isEmpty, setIsEmpty] = useState(false);
+
+  const platforms = Object.freeze({
+    GOOGLE: "Google",
+    TABOOLA: "Taboola",
+    TIKTOK: "TikTok",
+  });
 
   const editHandler = () => {
     setIsEdit((prevState) => {
@@ -40,55 +46,74 @@ const Campaign = ({ campaign, getCampaigns }) => {
   };
 
   return !isEdit ? (
-    <tr>
-      <td>{campaign.name}</td>
-      <td>{campaign.advertsringPlatform}</td>
-      <td>{campaign.advertiserLandingPage}</td>
-      <td>{campaign.bannerImageURL}</td>
-      <td onClick={editHandler}>Edit</td>
-      <td>
-        <a href={campaign.bannerImageURL}>Preview</a>
-        <a href={campaign.advertiserLandingPage}>
-          <img src={campaign.bannerImageURL} alt="Banner" />
+    <tr className={`table-row ${index % 2 !== 0 && "odd-row"}`}>
+      <td className="table-data">{campaign.name}</td>
+      <td className="table-data">{campaign.advertsringPlatform}</td>
+      <td className="table-data">{campaign.advertiserLandingPage}</td>
+      <td className="table-data">{campaign.bannerImageURL}</td>
+      <td className="table-data" onClick={editHandler}>
+        <label className="table-action">Edit</label>
+      </td>
+      <td className="table-data">
+        <a className="link" href={campaign.bannerImageURL}>
+          <label className="table-action">Preview</label>
+        </a>
+        <a className="link" href={campaign.advertiserLandingPage}>
+          <img
+            className="banner-img"
+            src={campaign.bannerImageURL}
+            alt="Banner"
+          />
         </a>
       </td>
     </tr>
   ) : (
-    <tr>
-      <td>
+    <tr className={`table-row ${index % 2 !== 0 && "odd-row"}`}>
+      <td className="table-data">
         <input
+          className="edit-input"
           name="name"
           type="text"
           defaultValue={campaign.name}
           onChange={changeValues}
         />
       </td>
-      <td>
-        <input
+      <td className="table-data">
+        <select
+          className="platform-select-edit"
           name="advertsringPlatform"
-          type="text"
-          defaultValue={campaign.advertsringPlatform}
           onChange={changeValues}
-        />
+          defaultValue={campaign.advertsringPlatform}
+        >
+          <option value={platforms.GOOGLE}>{platforms.GOOGLE}</option>
+          <option value={platforms.TABOOLA}>{platforms.TABOOLA}</option>
+          <option value={platforms.TIKTOK}>{platforms.TIKTOK}</option>
+        </select>
       </td>
-      <td>
+      <td className="table-data">
         <input
+          className="edit-input"
           name="advertiserLandingPage"
           type="text"
           defaultValue={campaign.advertiserLandingPage}
           onChange={changeValues}
         />
       </td>
-      <td>
+      <td className="table-data">
         <input
+          className="edit-input"
           name="bannerImageURL"
           type="text"
           defaultValue={campaign.bannerImageURL}
           onChange={changeValues}
         />
       </td>
-      <td onClick={saveEditHandler}>Save</td>
-      <td onClick={editHandler}>Cancel</td>
+      <td className="table-data" onClick={saveEditHandler}>
+        <label className="table-action">Save</label>
+      </td>
+      <td className="table-data" onClick={editHandler}>
+        <label className="table-action">Cancel</label>
+      </td>
     </tr>
   );
 };
