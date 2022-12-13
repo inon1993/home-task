@@ -9,7 +9,7 @@ export const addCampaign = async (req, res) => {
       bannerImageURL: req.body.bannerImageURL,
     });
     await newCampaign.save();
-    res.status(200).send(newCampaign);
+    res.status(200).send("Campaign was added successfully.");
   } catch (error) {
     res.status(500).send(error);
   }
@@ -18,7 +18,7 @@ export const addCampaign = async (req, res) => {
 export const getAllCampaigns = async (req, res) => {
   try {
     const campaigns = await Campaign.find();
-    res.status(200).send(campaigns);
+    res.status(200).send(campaigns.reverse());
   } catch (error) {
     res.status(500).send(error);
   }
@@ -26,7 +26,7 @@ export const getAllCampaigns = async (req, res) => {
 
 export const editCampaign = async (req, res) => {
   try {
-    const data = await Campaign.findByIdAndUpdate(
+    await Campaign.findByIdAndUpdate(
       req.params.id,
       {
         $set: req.body,

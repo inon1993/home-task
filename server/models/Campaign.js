@@ -4,8 +4,6 @@ const CampaignSchema = Schema({
   name: {
     type: String,
     required: true,
-    minlength: 2,
-    maxlength: 20,
   },
   advertsringPlatform: {
     type: String,

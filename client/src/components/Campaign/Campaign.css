@@ -1,5 +1,6 @@
 .table-row {
     transition: 200ms;
+    width: 100%;
 }
 
 .table-row:hover {
@@ -38,11 +39,9 @@ a {
     border: 1px solid #01B5D8;
 }
 
-.platform-select-edit {
-    /* margin: 5px 0; */
-    /* background-color: #f6f6f6; */
-    padding: 5px;
-    border: 1px solid #01B5D8;
-    outline: none;
-    border-radius: 5px;
+.error-msg-edit {
+    color: tomato;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    display: block;
 }

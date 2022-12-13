@@ -1,0 +1,15 @@
+.platform-select {
+    margin: 5px 0;
+    background-color: #f6f6f6;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+
+.platform-select-edit {
+    padding: 5px;
+    border: 1px solid #01B5D8;
+    outline: none;
+    border-radius: 5px;
+}

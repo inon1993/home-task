@@ -9,6 +9,8 @@
     font-size: 1rem;
     font-weight: 700;
     transition: 200ms;
+    box-shadow: rgba(40, 179, 249, 0.5) 0px 7px 29px 0px;
+
 }
 
 .add-campaign-btn:hover {
@@ -29,20 +31,11 @@
     border-radius: 5px;
 }
 
-.platform-select {
-    margin: 5px 0;
-    background-color: #f6f6f6;
-    padding: 10px;
-    border: none;
-    outline: none;
-    border-radius: 5px;
-}
-
-.empty-msg {
+.error-msg {
     margin-top: 5px;
     margin-bottom: -10px;
     text-align: center;
-    color: red;
+    color: tomato;
 }
 
 .btns-wrapper {
@@ -52,7 +45,7 @@
 }
 
 .btn {
-    height: 40px;
+    height: 43px;
     font-size: 0.9rem;
     font-weight: 500;
     border: none;
@@ -60,6 +53,7 @@
     border-radius: 15px;
     font-weight: bold;
     cursor: pointer;
+    width: 40%;
 }
 
 .add-btn {
@@ -93,9 +87,6 @@
     bottom: 0;
     position: fixed;
     z-index: 3;
-}
-
-.overlay {
     background: rgba(49,49,49,0.7);
 }
 
@@ -111,6 +102,38 @@
     border-radius: 15px;
 }
 
-body.active-modal {
-    overflow-y: hidden;
-}
+@media only screen and (max-width: 1100px) {
+    .add-campaign-wrapper {
+        width: 35vw;
+    }
+  }
+
+  @media only screen and (max-width: 700px) {
+    .add-campaign-wrapper {
+        width: 55vw;
+    }
+  }
+
+  @media only screen and (max-width: 450px) {
+    .add-campaign-btn {
+        padding: 13px 7px;
+        font-size: 0.9rem;
+    }
+
+    .add-campaign-wrapper {
+        width: 75vw;
+    }
+
+    .btns-wrapper {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .add-btn {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+  }

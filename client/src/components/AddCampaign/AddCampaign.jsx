@@ -1,6 +1,7 @@
 import "./AddCampaign.css";
 import { useState } from "react";
 import { addCampaign } from "../../api/campaignsApi";
+import SelectPlatform from "../SelectPlatform/SelectPlatform";
 
 const AddCampaign = ({ getCampaigns }) => {
   const [isAddCampaign, setIsAddCampagin] = useState(false);
@@ -10,29 +11,24 @@ const AddCampaign = ({ getCampaigns }) => {
     advertiserLandingPage: "",
     bannerImageURL: "",
   });
-  const [isEmpty, setIsEmpty] = useState(false);
+  const [isError, setIsError] = useState({ state: false, msg: "" });
 
-  const platforms = Object.freeze({
-    GOOGLE: "Google",
-    TABOOLA: "Taboola",
-    TIKTOK: "TikTok",
-  });
-
-  const addCampaignToggle = (e) => {
-    if (e.currentTarget !== e.target) return;
+  const addCampaignToggle = (event) => {
+    if (event.currentTarget !== event.target) return;
     setCampaign({
       name: "",
       advertsringPlatform: "",
       advertiserLandingPage: "",
       bannerImageURL: "",
     });
+    setIsError({ state: false, msg: "" });
     setIsAddCampagin((prev) => {
       return !prev;
     });
   };
 
   const changeValues = (event) => {
-    setIsEmpty(false);
+    setIsError({ state: false, msg: "" });
     setCampaign((prev) => {
       return {
         ...prev,
@@ -43,8 +39,8 @@ const AddCampaign = ({ getCampaigns }) => {
 
   const addCampaignHandler = async (event) => {
     event.preventDefault();
-    if (Object.values(campaign).some((key) => key.length === 0)) {
-      setIsEmpty(true);
+    if (Object.values(campaign).some((value) => value.length === 0)) {
+      setIsError({ state: true, msg: "All fields are required." });
       return;
     }
     try {
@@ -52,7 +48,7 @@ const AddCampaign = ({ getCampaigns }) => {
       await getCampaigns();
       setIsAddCampagin(false);
     } catch (error) {
-      console.error(error);
+      setIsError({ state: true, msg: "Something went wrong... Try again." });
     }
   };
 
@@ -76,19 +72,7 @@ const AddCampaign = ({ getCampaigns }) => {
                 onChange={changeValues}
               />
               <label>Advertsring platform:</label>
-              <select
-                className="platform-select"
-                name="advertsringPlatform"
-                onChange={changeValues}
-                defaultValue=""
-              >
-                <option disabled default value="">
-                  Select a platform
-                </option>
-                <option value={platforms.GOOGLE}>{platforms.GOOGLE}</option>
-                <option value={platforms.TABOOLA}>{platforms.TABOOLA}</option>
-                <option value={platforms.TIKTOK}>{platforms.TIKTOK}</option>
-              </select>
+              <SelectPlatform action="add" changeValues={changeValues} />
               <label>Advertiser landing page:</label>
               <input
                 className="add-campaign-input"
@@ -101,8 +85,8 @@ const AddCampaign = ({ getCampaigns }) => {
                 name="bannerImageURL"
                 onChange={changeValues}
               />
-              {isEmpty && (
-                <label className="empty-msg">All fields are required.</label>
+              {isError.state && (
+                <label className="error-msg">{isError.msg}</label>
               )}
               <div className="btns-wrapper">
                 <button className="btn add-btn" type="submit">

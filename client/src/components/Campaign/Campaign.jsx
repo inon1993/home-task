@@ -1,21 +1,17 @@
 import "./Campaign.css";
 import { useState } from "react";
 import { saveEdit } from "../../api/campaignsApi";
+import SelectPlatform from "../SelectPlatform/SelectPlatform";
 
 const Campaign = ({ index, campaign, getCampaigns }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [campaignToUpdate, setCampaignToUpdate] = useState({
     _id: campaign._id,
   });
-  const [isEmpty, setIsEmpty] = useState(false);
-
-  const platforms = Object.freeze({
-    GOOGLE: "Google",
-    TABOOLA: "Taboola",
-    TIKTOK: "TikTok",
-  });
+  const [isError, setIsError] = useState({ state: false, msg: "" });
 
   const editHandler = () => {
+    setIsError({ state: false, msg: "" });
     setIsEdit((prevState) => {
       return !prevState;
     });
@@ -23,20 +19,21 @@ const Campaign = ({ index, campaign, getCampaigns }) => {
 
   const saveEditHandler = async () => {
     if (Object.values(campaignToUpdate).some((key) => key.length === 0)) {
-      setIsEmpty(true);
+      setIsError({ state: true, msg: "All fields are required." });
       return;
     }
     try {
       await saveEdit(campaignToUpdate);
       await getCampaigns();
+      setIsError({ state: false, msg: "" });
       editHandler();
     } catch (error) {
-      console.error(error);
+      setIsError({ state: true, msg: "Something went wrong... Try again." });
     }
   };
 
   const changeValues = (event) => {
-    setIsEmpty(false);
+    setIsError({ state: false, msg: "" });
     setCampaignToUpdate((prevState) => {
       return {
         ...prevState,
@@ -79,16 +76,11 @@ const Campaign = ({ index, campaign, getCampaigns }) => {
         />
       </td>
       <td className="table-data">
-        <select
-          className="platform-select-edit"
-          name="advertsringPlatform"
-          onChange={changeValues}
-          defaultValue={campaign.advertsringPlatform}
-        >
-          <option value={platforms.GOOGLE}>{platforms.GOOGLE}</option>
-          <option value={platforms.TABOOLA}>{platforms.TABOOLA}</option>
-          <option value={platforms.TIKTOK}>{platforms.TIKTOK}</option>
-        </select>
+        <SelectPlatform
+          action="edit"
+          changeValues={changeValues}
+          advertsringPlatform={campaign.advertsringPlatform}
+        />
       </td>
       <td className="table-data">
         <input
@@ -108,8 +100,11 @@ const Campaign = ({ index, campaign, getCampaigns }) => {
           onChange={changeValues}
         />
       </td>
-      <td className="table-data" onClick={saveEditHandler}>
+      <td className="table-data save-edit" onClick={saveEditHandler}>
         <label className="table-action">Save</label>
+        {isError.state && (
+          <label className="error-msg-edit">{isError.msg}</label>
+        )}
       </td>
       <td className="table-data" onClick={editHandler}>
         <label className="table-action">Cancel</label>
